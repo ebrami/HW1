@@ -28,6 +28,8 @@ public abstract class Shape implements Cloneable {
      * 					(this.location.getX() >= 0 && this.location.getY() >= 0)
      */
     
+    //BANANA!!!
+    
     protected void checkRep() {
     	assert(this.location != null);
     	assert(this.color != null);
