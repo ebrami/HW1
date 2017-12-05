@@ -26,6 +26,7 @@ public abstract class Shape implements Cloneable {
     /**
      * Rep. Invariant:	(this.location != null) && (this.color != null)
      * 					(this.location.getX() >= 0 && this.location.getY() >= 0)
+     * Adding test doc
      */
     
     protected void checkRep() {
