@@ -1,6 +1,7 @@
 package homework1;
 
 import java.awt.*;
+import java.util.Random;
 
 
 /**
@@ -11,22 +12,59 @@ import java.awt.*;
  * properties: {location, color, shape, size, velocity}
  */
 public abstract class LocationChangingShape extends Shape implements Animatable {
+	
+	private static final int MAX_VELOCITY = 5;
+	private int velocityX, velocityY;
 
-    // TODO (BOM): Write Abstraction Function
+	/**
+     * Abstraction Function:	The class represents a shape that can move such that the shape's location is given as 
+     * 							the top left corner of the bounding rectangle in the field 'location', the velocity of 
+     * 							the shape is given as integers in the fields 'velocityX' and 'velocityY', representing 
+     * 							a vector with velocity in the X and Y axes, and the color is given by the field 'color'.
+     * 							The shape's size is determined by the shape type and might change between different 
+     * 							shapes.
+     */
 
-    // TODO (BOM): Write Representation Invariant
+	/**
+     * Rep. Invariant:	(this.location != null) && (this.color != null)
+     * 					(this.location.getX() >= 0 && this.location.getY() >= 0)
+     * 					(this.velocityX >= -MAX_VELOCITY && this.velocityX <= MAX_VELOCITY)
+     * 					(this.velocityY >= -MAX_VELOCITY && this.velocityY <= MAX_VELOCITY)
+     */
+	private void checkRep() {
+		assert(this.getLocation() != null);
+		assert(this.getColor() != null);
+    	assert(this.getLocation().getX() >= 0);
+    	assert(this.getLocation().getY() >= 0);
+		assert(this.velocityX >= -MAX_VELOCITY && this.velocityX <= MAX_VELOCITY);
+		assert(this.velocityY >= -MAX_VELOCITY && this.velocityY <= MAX_VELOCITY);
+	}
 
 
     /**
-     * @effects Initializes this with a a given location and color. Each
+     * @effects Initializes this with a given location and color. Each
      *          of the horizontal and vertical velocities of the new
      *          object is set to a random integral value i such that
      *          -5 <= i <= 5 and i != 0
      */
     LocationChangingShape(Point location, Color color) {
-        // TODO (BOM): Implement this constructor
-
-
+        super(location, color);
+        // Randomize X axis velocity and sign.
+        int randVelocityX = new Random().nextInt(MAX_VELOCITY) + 1;
+        int signVelocityX = new Random().nextInt(2);
+        if (signVelocityX == 0) {
+        	randVelocityX = -randVelocityX;
+        }
+        // Randomize Y axis velocity and sign.
+        int randVelocityY = new Random().nextInt(MAX_VELOCITY) + 1;
+        int signVelocityY = new Random().nextInt(2);
+        if (signVelocityY == 0) {
+        	randVelocityY = -randVelocityY;
+        }
+        
+        this.velocityX = randVelocityX;
+        this.velocityY = randVelocityY;
+        this.checkRep();
     }
 
 
@@ -34,9 +72,8 @@ public abstract class LocationChangingShape extends Shape implements Animatable 
      * @return the horizontal velocity of this.
      */
     public int getVelocityX() {
-        // TODO (BOM): Implement this method
-
-
+    	this.checkRep();
+        return this.velocityX;
     }
 
 
@@ -44,9 +81,8 @@ public abstract class LocationChangingShape extends Shape implements Animatable 
      * @return the vertical velocity of this.
      */
     public int getVelocityY() {
-        // TODO (BOM): Implement this method
-
-
+    	this.checkRep();
+    	return this.velocityY;
     }
 
 
@@ -57,9 +93,10 @@ public abstract class LocationChangingShape extends Shape implements Animatable 
      *          vertical velocity of this to velocityY.
      */
     public void setVelocity(int velocityX, int velocityY) {
-        // TODO (BOM): Implement this method
-
-
+    	this.checkRep();
+    	this.velocityX = velocityX;
+    	this.velocityY = velocityY;
+    	this.checkRep();
     }
 
 
@@ -78,8 +115,25 @@ public abstract class LocationChangingShape extends Shape implements Animatable 
      *          p = p + v
      */
     public void step(Rectangle bound) {
-        // TODO (BOM): Implement this method
-
-
+    	this.checkRep();
+    	Point oldLocation = this.getLocation();
+    	int newLocationX = (int)this.getLocation().getX() + this.getVelocityX();
+    	int newLocationY = (int)this.getLocation().getY() + this.getVelocityY();
+    	// Needed checks for representation invariant.
+    	if (newLocationX < 0) {
+    		newLocationX -= 2*this.getVelocityX();
+    	}
+    	if (newLocationY < 0) {
+    		newLocationY -= 2*this.getVelocityY();
+    	}
+    	this.setLocation(new Point(newLocationX, newLocationY));
+    	if (!bound.contains(this.getBounds())) {
+    		this.setLocation(new Point(newLocationX - 2*this.getVelocityX(), newLocationY - 2*this.getVelocityY()));
+    		if (!bound.contains(this.getBounds())) {
+    			this.setLocation(oldLocation);
+    		}
+    	}
+    	this.checkRep();
     }
+
 }
