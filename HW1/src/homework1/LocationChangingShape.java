@@ -13,7 +13,7 @@ import java.util.Random;
  */
 public abstract class LocationChangingShape extends Shape implements Animatable {
 	
-	private static final int MAX_VELOCITY = 5;
+	private final int MAX_VELOCITY = 5;
 	private int velocityX, velocityY;
 
 	/**
@@ -84,6 +84,14 @@ public abstract class LocationChangingShape extends Shape implements Animatable 
     	this.checkRep();
     	return this.velocityY;
     }
+    
+    /**
+     * @return the absolute maximal velocity of this.
+     */
+    public int getMaxVelocity() {
+    	this.checkRep();
+    	return this.MAX_VELOCITY;
+    }
 
 
     /**
@@ -134,6 +142,22 @@ public abstract class LocationChangingShape extends Shape implements Animatable 
     		}
     	}
     	this.checkRep();
+    }
+    
+    /**
+     * @effects Creates and returns a copy of this.
+     */
+    public Object clone() {
+    	this.checkRep();
+    	LocationChangingShape cloned;
+        try {
+        	cloned = (LocationChangingShape)super.clone();
+        	cloned.setVelocity(this.getVelocityX(), this.getVelocityY());
+        } catch (InternalError e) {
+        	throw e;
+        }
+        this.checkRep();
+        return cloned;
     }
 
 }

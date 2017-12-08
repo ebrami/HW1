@@ -23,6 +23,17 @@ public abstract class ColorAndLocationChangingShape extends LocationChangingShap
     /**
      * Rep. Invariant:	Same as in LocationChangingShape.
      */
+	
+	void checkRep() {
+		assert(this.getLocation() != null);
+		assert(this.getColor() != null);
+    	assert(this.getLocation().getX() >= 0);
+    	assert(this.getLocation().getY() >= 0);
+		assert(this.getVelocityX() >= -this.getMaxVelocity() && this.getVelocityX() <= this.getMaxVelocity() && 
+				this.getVelocityX() != 0);
+		assert(this.getVelocityY() >= -this.getMaxVelocity() && this.getVelocityY() <= this.getMaxVelocity() && 
+				this.getVelocityY() != 0);
+	}
 
 
     /**
@@ -33,6 +44,7 @@ public abstract class ColorAndLocationChangingShape extends LocationChangingShap
      */
 	ColorAndLocationChangingShape(Point location, Color color) {
         super(location, color);
+        this.checkRep();
     }
 
     /**
@@ -44,6 +56,7 @@ public abstract class ColorAndLocationChangingShape extends LocationChangingShap
 	 *			else, does not change the color of this.
      */
     public void step(Rectangle bound) {
+    	this.checkRep();
     	Point oldVelocity = new Point(this.getVelocityX(), this.getVelocityY());
         super.step(bound);
         Point newVelocity = new Point(this.getVelocityX(), this.getVelocityY());
@@ -57,5 +70,6 @@ public abstract class ColorAndLocationChangingShape extends LocationChangingShap
         		)
         	);
         }
+        this.checkRep();
     }
 }
