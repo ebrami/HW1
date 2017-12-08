@@ -24,7 +24,7 @@ public abstract class ColorAndLocationChangingShape extends LocationChangingShap
      * Rep. Invariant:	Same as in LocationChangingShape.
      */
 	
-	void checkRep() {
+	private void checkRep() {
 		assert(this.getLocation() != null);
 		assert(this.getColor() != null);
     	assert(this.getLocation().getX() >= 0);

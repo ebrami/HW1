@@ -55,7 +55,7 @@ public class LocationChangingOval extends LocationChangingShape {
 		try {
 			this.dimension = (Dimension)dimension.clone();
 		} catch(Exception e) {
-			throw new ImpossibleSizeException(1);
+			throw new ImpossibleSizeException(new Dimension(1, 1));
 		}
 		this.checkRep();
 	}
