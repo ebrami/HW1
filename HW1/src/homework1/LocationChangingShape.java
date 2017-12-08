@@ -20,7 +20,7 @@ public abstract class LocationChangingShape extends Shape implements Animatable 
      * Abstraction Function:	The class represents a shape that can move such that the shape's location is given as 
      * 							the top left corner of the bounding rectangle in the field 'location', the velocity of 
      * 							the shape is given as integers in the fields 'velocityX' and 'velocityY', representing 
-     * 							a vector with velocity in the X and Y axes, and the color is given by the field 'color'.
+     * 							a vector with velocity in the (X,Y) axes, and the color is given by the field 'color'.
      * 							The shape's size is determined by the shape type and might change between different 
      * 							shapes.
      */
@@ -28,16 +28,16 @@ public abstract class LocationChangingShape extends Shape implements Animatable 
 	/**
      * Rep. Invariant:	(this.location != null) && (this.color != null)
      * 					(this.location.getX() >= 0 && this.location.getY() >= 0)
-     * 					(this.velocityX >= -MAX_VELOCITY && this.velocityX <= MAX_VELOCITY)
-     * 					(this.velocityY >= -MAX_VELOCITY && this.velocityY <= MAX_VELOCITY)
+     * 					(this.velocityX >= -MAX_VELOCITY && this.velocityX <= MAX_VELOCITY && this.velocityX != 0)
+     * 					(this.velocityY >= -MAX_VELOCITY && this.velocityY <= MAX_VELOCITY && this.velocityY != 0)
      */
 	private void checkRep() {
 		assert(this.getLocation() != null);
 		assert(this.getColor() != null);
     	assert(this.getLocation().getX() >= 0);
     	assert(this.getLocation().getY() >= 0);
-		assert(this.velocityX >= -MAX_VELOCITY && this.velocityX <= MAX_VELOCITY);
-		assert(this.velocityY >= -MAX_VELOCITY && this.velocityY <= MAX_VELOCITY);
+		assert(this.velocityX >= -MAX_VELOCITY && this.velocityX <= MAX_VELOCITY && this.velocityX != 0);
+		assert(this.velocityY >= -MAX_VELOCITY && this.velocityY <= MAX_VELOCITY && this.velocityY != 0);
 	}
 
 
