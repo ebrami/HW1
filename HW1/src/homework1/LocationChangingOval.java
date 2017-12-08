@@ -22,7 +22,7 @@ public class LocationChangingOval extends LocationChangingShape {
 	 * Rep. Invariant: same as LocationChangingShape.
 	 */
 	
-	void checkRep() {
+	private void checkRep() {
 		assert(this.getLocation() != null);
 		assert(this.getColor() != null);
     	assert(this.getLocation().getX() >= 0);
