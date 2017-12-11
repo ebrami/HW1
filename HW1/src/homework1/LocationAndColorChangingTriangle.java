@@ -6,13 +6,23 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+/**
+ * A LocationAndColorChangingTriangle is a ColorAndLocationChangingShape that can change its location and color using 
+ * its step() method.
+ * Thus, a typical LocationAndColorChangingTriangle consists of the following set of
+ * properties: {location, color, shape, size, velocity}
+ */
 public class LocationAndColorChangingTriangle extends ColorAndLocationChangingShape {
 	
 	private Dimension dimension;
 	
-	//TODO: abstraction function.
+	/**
+     * Abstraction Function:	Same as in ColorAndLocationChangingShape.
+     */
 	
-	//TODO: rep. inv.
+	/**
+	 * Rep. Invariant: Same as ColorAndLocationChangingShape.
+	 */
 
 	/**
      * @effects Initializes this with a given location, color and dimension. Each

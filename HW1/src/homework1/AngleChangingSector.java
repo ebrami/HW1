@@ -7,7 +7,10 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 /**
- * TODO: documentation.
+ * An AngleChangingSector is a Shape that can change its sector angle using its step()
+ * method. An AngleChangingSector has a startAngle property that determines the animation's base angle.
+ * Thus, a typical AngleChangingSector consists of the following set of
+ * properties: {location, color, size, start angle}
  */
 public class AngleChangingSector extends Shape implements Animatable {
 
@@ -17,12 +20,19 @@ public class AngleChangingSector extends Shape implements Animatable {
 	private boolean goingUp;
 	private Dimension dimension;
 	
-	//TODO: abstraction function.
-	
-	//TODO: rep. inv.
+	/**
+	 * Abstraction Function:	The class represents an angle changing sector in a way that the angle animation base is
+	 * 							given in the field startAngle and the angle between that base and the rest of the 
+	 * 							visible sector is given by the field sectorAngle. The direction of the animation is
+	 * 							given by the field goingUp. The size is given by the special field dimension.
+	 */
 	
 	/**
-	 * @requires 0 <= startAngle, sectorAngle < 360
+	 * Rep. Invariant:	0 <= (startAngle, sectorAngle) < 360
+	 */
+	
+	/**
+	 * @requires 0 <= (startAngle, sectorAngle) < 360
 	 * @effects Initializes this with location, color, dimension, angles.
 	 */
 	public AngleChangingSector(Point location, Color color, Dimension dimension, int startAngle, int sectorAngle) {
