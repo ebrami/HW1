@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Random;
 
 import javax.swing.*;
 
@@ -19,6 +20,11 @@ public class Animator extends JFrame implements ActionListener {
     // preferred frame width and height.
     private static final int WINDOW_WIDTH = 600;
     private static final int WINDOW_HEIGHT = 400;
+    
+    private static final int MAX_HEIGHT = ((3 * WINDOW_HEIGHT) / 10);
+    private static final int MAX_WIDTH = (WINDOW_HEIGHT / 10);
+    private static final int MIN_HEIGHT = (WINDOW_HEIGHT / 10);
+    private static final int MIN_WIDTH = (WINDOW_HEIGHT / 10);
 
     // graphical components
     private JMenuBar menuBar;
@@ -31,7 +37,9 @@ public class Animator extends JFrame implements ActionListener {
 
     // shapes that have been added to this
 
-    private Collection<Animatable> shapes = new HashSet<>();
+    private Collection<Shape> shapes = new HashSet<>();
+    
+    private Random rand = new Random();
 
 
     /**
@@ -53,9 +61,9 @@ public class Animator extends JFrame implements ActionListener {
         Timer timer = new Timer(40, new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 if (animationCheckItem.isSelected()) {
-                    Iterator<Animatable> it = shapes.iterator();
+                    Iterator<Shape> it = shapes.iterator();
                     while(it.hasNext()){
-                    	it.next().step(mainPanel.getBounds());
+                    	((Animatable)it.next()).step(mainPanel.getBounds());
                     }
                     repaint();  // make sure that the shapes are redrawn
                 }
@@ -131,9 +139,9 @@ public class Animator extends JFrame implements ActionListener {
     public void paint(Graphics g) {
         super.paint(g);
 
-        Iterator<Animatable> it = shapes.iterator();
+        Iterator<Shape> it = shapes.iterator();
         while(it.hasNext()){
-        	((Shape)it.next()).draw(getContentPane().getGraphics());
+        	it.next().draw(getContentPane().getGraphics());
         }
     }
 
@@ -164,14 +172,51 @@ public class Animator extends JFrame implements ActionListener {
                  (source.equals(ovalItem)) ||
                  (source.equals(numberedOvalItem)) ||
                  (source.equals(sectorItem))) {
-
-            // TODO (BOM): Add code for creating the appropriate shape such that:
-            //       it is completely inside the window's bounds &&
-            //       its location, size and color are randomly selected &&
-            //       1/10*WINDOW_WIDTH <= shape.width < 3/10*WINDOW_WIDTH &&
-            //       1/10*WINDOW_HEIGHT <= shape.height < 3/10*WINDOW_HEIGHT
-
-
+        	Color color = new Color(rand.nextInt());
+        	int randWidth = rand.nextInt(MAX_WIDTH-MIN_WIDTH+1) + MIN_WIDTH;
+        	int randHeight = rand.nextInt(MAX_HEIGHT-MIN_HEIGHT+1) + MAX_HEIGHT;
+        	int randX = rand.nextInt(WINDOW_WIDTH-randWidth+1);
+        	int randY = rand.nextInt(WINDOW_HEIGHT-randHeight+1);
+        	
+        	Point location = new Point(randX, randY);
+        	Dimension dimension = new Dimension(randWidth, randHeight);
+        	
+        	Shape shape;
+        	if(source.equals(triangleItem)){
+        		try{
+        			shape = new LocationAndColorChangingTriangle(location,color,dimension);
+        		}
+        		catch (ImpossibleSizeException e1){
+        			shape = new LocationAndColorChangingTriangle(location,color,e1.getDimension());
+        		}
+        	}
+        	else if (source.equals(ovalItem)){
+        		try{
+        			shape = new LocationChangingOval(location,color,dimension);
+        		}
+        		catch (ImpossibleSizeException e2){
+        			shape = new LocationChangingOval(location,color,e2.getDimension());
+        		}
+        	}
+        	else if (source.equals(numberedOvalItem)){
+        		try{
+        			shape = new LocationChangingNumberedOval(location,color,dimension);
+        		}
+        		catch (ImpossibleSizeException e3){
+        			shape = new LocationChangingNumberedOval(location,color,e3.getDimension());
+        		}
+        	} 
+        	else { // sectorItem
+        		try{
+        			shape = new AngleChangingSector(location,color,dimension,
+        					rand.nextInt(360),rand.nextInt(360));
+        		}
+        		catch (ImpossibleSizeException e4){
+        			shape = new AngleChangingSector(location,color,e4.getDimension(),
+        					rand.nextInt(360),rand.nextInt(360));
+        		}
+        	}
+        	shapes.add(shape);
             repaint();
         }
 
