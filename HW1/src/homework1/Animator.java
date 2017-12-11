@@ -63,7 +63,10 @@ public class Animator extends JFrame implements ActionListener {
                 if (animationCheckItem.isSelected()) {
                     Iterator<Shape> it = shapes.iterator();
                     while(it.hasNext()){
-                    	((Animatable)it.next()).step(mainPanel.getBounds());
+                    	Shape current = it.next();
+                    	if(current instanceof Animatable){
+                    		((Animatable)current).step(mainPanel.getBounds());
+                    	}
                     }
                     repaint();  // make sure that the shapes are redrawn
                 }
