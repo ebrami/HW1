@@ -34,6 +34,10 @@ public class LocationChangingNumberedOval extends LocationChangingOval {
 		LocationChangingNumberedOval.nextNumber++;
 	}
 
+	/**
+     * @modifies g
+     * @effects Draws this onto g.
+     */
 	@Override
 	public void draw(Graphics g) {
 		super.draw(g);

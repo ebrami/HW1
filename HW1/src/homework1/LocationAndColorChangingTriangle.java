@@ -17,7 +17,8 @@ public class LocationAndColorChangingTriangle extends ColorAndLocationChangingSh
 	private Dimension dimension;
 	
 	/**
-     * Abstraction Function:	Same as in ColorAndLocationChangingShape.
+     * Abstraction Function:	Same as in ColorAndLocationChangingShape with the addition of a dimension, representing 
+     * 							the size properties of the triangle.
      */
 	
 	/**
@@ -40,6 +41,15 @@ public class LocationAndColorChangingTriangle extends ColorAndLocationChangingSh
 		
 	}
 
+	/**
+     * @modifies this
+     * @effects Resizes this so that its bounding rectangle has the specified
+     *          dimension.
+     *          If this cannot be resized to the specified dimension =>
+     *          this is not modified, throws ImpossibleSizeException
+     *          (the exception suggests an alternative dimension that is
+     *           supported by this).
+     */
 	@Override
 	public void setSize(Dimension dimension) throws ImpossibleSizeException {
 		//TODO: decide when should the exception be thrown and what will be the suggested size.
@@ -50,11 +60,18 @@ public class LocationAndColorChangingTriangle extends ColorAndLocationChangingSh
 		}
 	}
 
+	/**
+     * @return the bounding rectangle of this.
+     */
 	@Override
 	public Rectangle getBounds() {
 		return new Rectangle(this.dimension);
 	}
 
+	/**
+     * @modifies g
+     * @effects Draws this onto g.
+     */
 	@Override
 	public void draw(Graphics g) {
 		int[] xPoints = new int[3];

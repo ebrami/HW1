@@ -9,7 +9,7 @@ import java.awt.Rectangle;
 /**
  * A LocationChangingOval is a LocationChangingShape with the specified dimensions that make it an oval.
  */
-public class LocationChangingOval extends LocationChangingShape {
+public class LocationChangingOval extends LocationChangingShape implements Cloneable {
 	
 	private Dimension dimension;
 	
@@ -48,6 +48,15 @@ public class LocationChangingOval extends LocationChangingShape {
 		this.checkRep();
 	}
 
+	/**
+     * @modifies this
+     * @effects Resizes this so that its bounding rectangle has the specified
+     *          dimension.
+     *          If this cannot be resized to the specified dimension =>
+     *          this is not modified, throws ImpossibleSizeException
+     *          (the exception suggests an alternative dimension that is
+     *           supported by this).
+     */
 	@Override
 	public void setSize(Dimension dimension) throws ImpossibleSizeException {
 		this.checkRep();
@@ -60,12 +69,19 @@ public class LocationChangingOval extends LocationChangingShape {
 		this.checkRep();
 	}
 
+	/**
+     * @return the bounding rectangle of this.
+     */
 	@Override
 	public Rectangle getBounds() {
 		this.checkRep();
 		return new Rectangle(this.dimension);
 	}
 
+	/**
+     * @modifies g
+     * @effects Draws this onto g.
+     */
 	@Override
 	public void draw(Graphics g) {
 		this.checkRep();

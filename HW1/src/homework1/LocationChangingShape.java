@@ -32,10 +32,6 @@ public abstract class LocationChangingShape extends Shape implements Animatable 
      * 					(this.velocityY >= -MAX_VELOCITY && this.velocityY <= MAX_VELOCITY && this.velocityY != 0)
      */
 	private void checkRep() {
-		assert(this.getLocation() != null);
-		assert(this.getColor() != null);
-    	assert(this.getLocation().getX() >= 0);
-    	assert(this.getLocation().getY() >= 0);
 		assert(this.velocityX >= -MAX_VELOCITY && this.velocityX <= MAX_VELOCITY && this.velocityX != 0);
 		assert(this.velocityY >= -MAX_VELOCITY && this.velocityY <= MAX_VELOCITY && this.velocityY != 0);
 	}
@@ -123,24 +119,24 @@ public abstract class LocationChangingShape extends Shape implements Animatable 
      *          p = p + v
      */
     public void step(Rectangle bound) {
-    	this.checkRep();
-    	Point oldLocation = this.getLocation();
-    	int newLocationX = (int)this.getLocation().getX() + this.getVelocityX();
-    	int newLocationY = (int)this.getLocation().getY() + this.getVelocityY();
-    	// Needed checks for representation invariant.
-    	if (newLocationX < 0) {
-    		newLocationX -= 2*this.getVelocityX();
-    	}
-    	if (newLocationY < 0) {
-    		newLocationY -= 2*this.getVelocityY();
-    	}
-    	this.setLocation(new Point(newLocationX, newLocationY));
-    	if (!bound.contains(this.getBounds())) {
-    		this.setLocation(new Point(newLocationX - 2*this.getVelocityX(), newLocationY - 2*this.getVelocityY()));
-    		if (!bound.contains(this.getBounds())) {
-    			this.setLocation(oldLocation);
+    	this.checkRep();	
+    	Point newLocation = new Point((int)getLocation().getX() + getVelocityX(), 
+    								(int)getLocation().getY() + getVelocityY());
+    	Rectangle shapeBounds = this.getBounds();
+    	boolean notInBoundPlusVelX = shapeBounds.getMinX() + getVelocityX() < bound.getMinX() || 
+    								shapeBounds.getMaxX() + getVelocityX() > bound.getMaxX();
+    	boolean notInBoundPlusVelY = shapeBounds.getMinY() + getVelocityY() < bound.getMinY() || 
+    								shapeBounds.getMaxY() + getVelocityY() > bound.getMaxY();
+    	// If (part of r is outside bound) or (r is within bound but adding v to p would bring part of r outside bound)
+    	if (!bound.contains(shapeBounds) || notInBoundPlusVelX || notInBoundPlusVelY) {
+    		if (notInBoundPlusVelX) {
+    			this.velocityX = -this.velocityX;
+    		}
+    		if (notInBoundPlusVelY) {
+    			this.velocityY = -this.velocityY;
     		}
     	}
+    	this.setLocation(newLocation);
     	this.checkRep();
     }
     
