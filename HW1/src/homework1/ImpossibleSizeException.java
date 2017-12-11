@@ -6,7 +6,7 @@ import java.awt.Dimension;
  * An ImpossibleSizeException is an exception that is thrown in response to a wrong size being set to a shape of some
  * sort. It enables the possibility of a suggested size instead of the bad value that caused the exception.
  */
-public class ImpossibleSizeException extends Exception {
+public class ImpossibleSizeException extends RuntimeException {
 	
 	private Dimension dimension;
 	
