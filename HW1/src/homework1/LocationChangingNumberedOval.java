@@ -43,6 +43,10 @@ public class LocationChangingNumberedOval extends LocationChangingOval {
 	public void draw(Graphics g) {
 		super.draw(g);
 		g.setColor(Color.BLACK);
+		//Make sure number is visible.
+		if (this.getColor().getBlue() < 90 && this.getColor().getGreen() < 90 && this.getColor().getRed() < 90) {
+			g.setColor(Color.WHITE);
+		}
 		g.drawString(new Integer(serialNumber).toString(),
 				(int)getLocation().getX() + (int)this.getBounds().getCenterX(), (int)getLocation().getY() + (int)this.getBounds().getCenterY());
 	}
