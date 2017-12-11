@@ -46,7 +46,7 @@ public class LocationChangingNumberedOval extends LocationChangingOval {
 	 * @modifies this
 	 * @effects resets the nextNumber field for serializing numbered oval numbers.
 	 */
-	public void reset() {
+	public static void reset() {
 		LocationChangingNumberedOval.nextNumber = 1;
 	}
 

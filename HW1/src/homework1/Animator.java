@@ -2,6 +2,10 @@ package homework1;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+
 import javax.swing.*;
 
 /**
@@ -27,7 +31,7 @@ public class Animator extends JFrame implements ActionListener {
 
     // shapes that have been added to this
 
-    // TODO (BOM): Add and initialize a container of shapes called shapes.
+    private Collection<Animatable> shapes = new HashSet<>();
 
 
     /**
@@ -49,11 +53,10 @@ public class Animator extends JFrame implements ActionListener {
         Timer timer = new Timer(40, new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 if (animationCheckItem.isSelected()) {
-                    // TODO (BOM): Add code for making one animation step for all
-                    //       shapes in this
-
-
-
+                    Iterator<Animatable> it = shapes.iterator();
+                    while(it.hasNext()){
+                    	it.next().step(mainPanel.getBounds());
+                    }
                     repaint();  // make sure that the shapes are redrawn
                 }
             }
@@ -128,9 +131,10 @@ public class Animator extends JFrame implements ActionListener {
     public void paint(Graphics g) {
         super.paint(g);
 
-        //TODO (BOM): Add code for drawing all shapes in this
-
-
+        Iterator<Animatable> it = shapes.iterator();
+        while(it.hasNext()){
+        	((Shape)it.next()).draw(getContentPane().getGraphics());
+        }
     }
 
 
@@ -147,7 +151,7 @@ public class Animator extends JFrame implements ActionListener {
             shapes.clear();
             repaint();
 
-            //TODO (BOM):  Add code for number of LocationChangingNumerOval = 0
+            LocationChangingNumberedOval.reset();
         }
 
         // File->Exit: close application
