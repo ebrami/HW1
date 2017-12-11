@@ -22,9 +22,9 @@ public class Animator extends JFrame implements ActionListener {
     private static final int WINDOW_HEIGHT = 400;
     
     private static final int MAX_HEIGHT = ((3 * WINDOW_HEIGHT) / 10);
-    private static final int MAX_WIDTH = (WINDOW_HEIGHT / 10);
+    private static final int MAX_WIDTH = (WINDOW_WIDTH / 10);
     private static final int MIN_HEIGHT = (WINDOW_HEIGHT / 10);
-    private static final int MIN_WIDTH = (WINDOW_HEIGHT / 10);
+    private static final int MIN_WIDTH = (WINDOW_WIDTH / 10);
 
     // graphical components
     private JMenuBar menuBar;
