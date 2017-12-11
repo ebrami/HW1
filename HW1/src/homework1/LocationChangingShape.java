@@ -136,6 +136,8 @@ public abstract class LocationChangingShape extends Shape implements Animatable 
     			this.velocityY = -this.velocityY;
     		}
     	}
+    	newLocation = new Point((int)getLocation().getX() + getVelocityX(), 
+								(int)getLocation().getY() + getVelocityY());
     	this.setLocation(newLocation);
     	this.checkRep();
     }
