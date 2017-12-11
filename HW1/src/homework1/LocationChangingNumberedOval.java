@@ -44,7 +44,7 @@ public class LocationChangingNumberedOval extends LocationChangingOval {
 		super.draw(g);
 		g.setColor(Color.BLACK);
 		g.drawString(new Integer(serialNumber).toString(),
-				(int)this.getBounds().getCenterX(), (int)this.getBounds().getCenterY());
+				(int)getLocation().getX() + (int)this.getBounds().getCenterX(), (int)getLocation().getY() + (int)this.getBounds().getCenterY());
 	}
 	
 	/**
