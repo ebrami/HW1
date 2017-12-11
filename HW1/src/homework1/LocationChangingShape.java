@@ -123,10 +123,10 @@ public abstract class LocationChangingShape extends Shape implements Animatable 
     	Point newLocation = new Point((int)getLocation().getX() + getVelocityX(), 
     								(int)getLocation().getY() + getVelocityY());
     	Rectangle shapeBounds = this.getBounds();
-    	boolean notInBoundPlusVelX = shapeBounds.getMinX() + getVelocityX() < bound.getMinX() || 
-    								shapeBounds.getMaxX() + getVelocityX() > bound.getMaxX();
-    	boolean notInBoundPlusVelY = shapeBounds.getMinY() + getVelocityY() < bound.getMinY() || 
-    								shapeBounds.getMaxY() + getVelocityY() > bound.getMaxY();
+    	boolean notInBoundPlusVelX = getLocation().getX() + shapeBounds.getMinX() + getVelocityX() < bound.getMinX() || 
+    								getLocation().getX() + shapeBounds.getMaxX() + getVelocityX() > bound.getMaxX();
+    	boolean notInBoundPlusVelY = getLocation().getY() + shapeBounds.getMinY() + getVelocityY() < bound.getMinY() || 
+    								getLocation().getY() + shapeBounds.getMaxY() + getVelocityY() > bound.getMaxY();
     	// If (part of r is outside bound) or (r is within bound but adding v to p would bring part of r outside bound)
     	if (!bound.contains(shapeBounds) || notInBoundPlusVelX || notInBoundPlusVelY) {
     		if (notInBoundPlusVelX) {
