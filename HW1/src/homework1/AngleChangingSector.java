@@ -37,16 +37,14 @@ public class AngleChangingSector extends Shape implements Animatable {
 	}
 	
 	/**
+	 * @throws ImpossibleSizeException 
 	 * @requires 0 <= (startAngle, sectorAngle) < 360
 	 * @effects Initializes this with location, color, dimension, angles.
 	 */
-	public AngleChangingSector(Point location, Color color, Dimension dimension, int startAngle, int sectorAngle) {
+	public AngleChangingSector(Point location, Color color, Dimension dimension, int startAngle, int sectorAngle) 
+			throws ImpossibleSizeException {
 		super(location, color);
-		try {
-			this.dimension = (Dimension)dimension.clone();
-		} catch(Exception e) {
-			this.dimension = null;
-		}
+		this.setSize(dimension);
 		this.startAngle = startAngle;
 		this.sectorAngle = sectorAngle;
 		this.goingUp = true;
@@ -83,11 +81,10 @@ public class AngleChangingSector extends Shape implements Animatable {
 	@Override
 	public void setSize(Dimension dimension) throws ImpossibleSizeException {
 		this.checkRep();
-		try {
-			this.dimension = (Dimension)dimension.clone();
-		} catch(Exception e) {
+		if (dimension.getHeight() <= 0 || dimension.getWidth() <= 0) {
 			throw new ImpossibleSizeException(new Dimension(1, 1));
 		}
+		this.dimension = (Dimension)dimension.clone();
 		this.checkRep();
 	}
 

@@ -23,12 +23,13 @@ public class LocationChangingNumberedOval extends LocationChangingOval {
 	 */
 
 	/**
-     * @effects Initializes this with a given location, color and dimension. Each
+     * @throws ImpossibleSizeException 
+	 * @effects Initializes this with a given location, color and dimension. Each
      *          of the horizontal and vertical velocities of the new
      *          object is set to a random integral value i such that
      *          -5 <= i <= 5 and i != 0
      */
-	LocationChangingNumberedOval(Point location, Color color, Dimension dimension) {
+	LocationChangingNumberedOval(Point location, Color color, Dimension dimension) throws ImpossibleSizeException {
 		super(location, color, dimension);
 		this.serialNumber = nextNumber;
 		LocationChangingNumberedOval.nextNumber++;

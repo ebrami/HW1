@@ -26,19 +26,15 @@ public class LocationAndColorChangingTriangle extends ColorAndLocationChangingSh
 	 */
 
 	/**
-     * @effects Initializes this with a given location, color and dimension. Each
+     * @throws ImpossibleSizeException 
+	 * @effects Initializes this with a given location, color and dimension. Each
      *          of the horizontal and vertical velocities of the new
      *          object is set to a random integral value i such that
      *          -5 <= i <= 5 and i != 0
      */
-	LocationAndColorChangingTriangle(Point location, Color color, Dimension dimension) {
+	LocationAndColorChangingTriangle(Point location, Color color, Dimension dimension) throws ImpossibleSizeException {
 		super(location, color);
-		try {
-			this.dimension = (Dimension)dimension.clone();
-		} catch(Exception e) {
-			this.dimension = null;
-		}
-		
+		this.setSize(dimension);
 	}
 
 	/**
@@ -52,12 +48,10 @@ public class LocationAndColorChangingTriangle extends ColorAndLocationChangingSh
      */
 	@Override
 	public void setSize(Dimension dimension) throws ImpossibleSizeException {
-		//TODO: decide when should the exception be thrown and what will be the suggested size.
-		try {
-			this.dimension = (Dimension)dimension.clone();
-		} catch(Exception e) {
+		if (dimension.getHeight() <= 0 || dimension.getWidth() <= 0) {
 			throw new ImpossibleSizeException(new Dimension(1, 1));
 		}
+		this.dimension = (Dimension)dimension.clone();
 	}
 
 	/**
