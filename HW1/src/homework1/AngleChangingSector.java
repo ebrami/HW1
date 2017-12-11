@@ -32,8 +32,8 @@ public class AngleChangingSector extends Shape implements Animatable {
 	 */
 	
 	private void checkRep() {
-		assert(startAngle >= 0 && startAngle < AngleChangingSector.MAX_ANGLE);
-		assert(sectorAngle >= 0 && sectorAngle < AngleChangingSector.MAX_ANGLE);
+		assert(startAngle >= 0 && startAngle <= AngleChangingSector.MAX_ANGLE);
+		assert(sectorAngle >= 0 && sectorAngle <= AngleChangingSector.MAX_ANGLE);
 	}
 	
 	/**
